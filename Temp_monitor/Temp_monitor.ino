@@ -13,7 +13,8 @@
 //define E2 13
 //define F2 14
 //define G2 15
-byte TenPlass = 10;
+byte TenPlass = 10; 
+//Bytes holding the bit data for the different segments on the LCD display
 byte TENseven_seg_digits[10][7] = { { 1,1,1,1,1,1,0 },  // = 0
                                                            { 0,1,1,0,0,0,0 },  // = 1
                                                            { 1,1,0,1,1,0,1 },  // = 2
@@ -36,7 +37,7 @@ byte seven_seg_digits[10][7] = { { 1,1,1,1,1,1,0 },  // = 0
                                                            { 1,1,1,1,1,1,1 },  // = 8
                                                            { 1,1,1,0,0,1,1 }   // = 9
                                                            };
-int sensorpin =A5;
+int sensorpin =A5; 
 int sensorValue=0;
 int LCDprint =0;
 int LCDTENprint =0;
@@ -65,14 +66,14 @@ void setup() {
   
 
 }
-void sevenSegWrite(byte digit) {
+void sevenSegWrite(byte digit) { //writes for 0-9
   byte pin = 10;
   for (byte segCount = 0; segCount < 7; ++segCount) {
     digitalWrite(pin, seven_seg_digits[digit][segCount]);
     ++pin;
   }
 }
-void TENsevenSegWrite(byte digit) {
+void TENsevenSegWrite(byte digit) { //writes the thents
   byte pin = 2;
   for (byte segCount = 0; segCount < 7; ++segCount) {
     digitalWrite(pin, seven_seg_digits[digit][segCount]);
@@ -83,7 +84,7 @@ void loop() {
   
  int sensorValue = analogRead(sensorpin); //forklare
   float voltage = (sensorValue * (5.0 / 1024))*100; //forlkare
-  LCDprint = (int) voltage%10; //forlkare
+  LCDprint = (int) voltage%10;  //This operation is needed to extract the remineder of deviding by 10
   LCDTENprint = (int)voltage/10; 
   delay(10);
   sevenSegWrite(LCDprint);
